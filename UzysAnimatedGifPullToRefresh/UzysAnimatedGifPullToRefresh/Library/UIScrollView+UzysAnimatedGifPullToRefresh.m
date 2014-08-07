@@ -14,15 +14,15 @@ static char UIScrollViewPullToRefreshView;
 @implementation UIScrollView (UzysAnimatedGifPullToRefresh)
 @dynamic pullToRefreshView, showPullToRefresh;
 
-- (void)addPullToRefreshActionHandler:(actionHandler)handler
-                       ProgressImages:(NSArray *)progressImages
-                        LoadingImages:(NSArray *)loadingImages
-              ProgressScrollThreshold:(NSInteger)threshold
-               LoadingImagesFrameRate:(NSInteger)lframe;
+- (void)addPullToRefreshWithProgressImages:(NSArray *)progressImages
+                             loadingImages:(NSArray *)loadingImages
+                   progressScrollThreshold:(NSInteger)threshold
+                    loadingImagesFrameRate:(NSInteger)frameRate
+                             actionHandler:(actionHandler)handler
 {
     if(self.pullToRefreshView == nil)
     {
-        UzysAnimatedGifActivityIndicator *view = [[UzysAnimatedGifActivityIndicator alloc] initWithProgressImages:progressImages LoadingImages:loadingImages ProgressScrollThreshold:threshold LoadingImagesFrameRate:lframe];
+        UzysAnimatedGifActivityIndicator *view = [[UzysAnimatedGifActivityIndicator alloc] initWithProgressImages:progressImages LoadingImages:loadingImages ProgressScrollThreshold:threshold LoadingImagesFrameRate:frameRate];
         view.pullToRefreshHandler = handler;
         view.scrollView = self;
         view.frame = CGRectMake((self.bounds.size.width - view.bounds.size.width)/2,
@@ -36,45 +36,57 @@ static char UIScrollViewPullToRefreshView;
     
 }
 
-- (void)addPullToRefreshActionHandler:(actionHandler)handler
-                       ProgressImages:(NSArray *)progressImages
-              ProgressScrollThreshold:(NSInteger)threshold
+- (void)addPullToRefreshWithProgressImages:(NSArray *)progressImages
+                   progressScrollThreshold:(NSInteger)threshold
+                             actionHandler:(actionHandler)handler
+
 {
-    [self addPullToRefreshActionHandler:handler
-                         ProgressImages:progressImages
-                          LoadingImages:nil
-                ProgressScrollThreshold:threshold
-                 LoadingImagesFrameRate:0];
+    [self addPullToRefreshWithProgressImages:progressImages
+                               loadingImages:nil
+                     progressScrollThreshold:threshold
+                      loadingImagesFrameRate:0
+                               actionHandler:handler];
 }
 
-- (void)addPullToRefreshActionHandler:(actionHandler)handler ProgressImagesGifName:(NSString *)progressGifName LoadingImagesGifName:(NSString *)loadingGifName ProgressScrollThreshold:(NSInteger)threshold
+- (void)addPullToRefreshWithProgressImagesGifName:(NSString *)progressGifName
+                             loadingImagesGifName:(NSString *)loadingGifName
+                          progressScrollThreshold:(NSInteger)threshold
+                                    actionHandler:(actionHandler)handler
 {
     UIImage *progressImage = [UIImage imageNamed:progressGifName];
     UIImage *loadingImage = [UIImage imageNamed:loadingGifName];
     
-    [self addPullToRefreshActionHandler:handler
-                         ProgressImages:progressImage.images
-                          LoadingImages:loadingImage.images
-                ProgressScrollThreshold:threshold
-                 LoadingImagesFrameRate:(NSInteger)ceilf(1.0/(loadingImage.duration/loadingImage.images.count))];
+    [self addPullToRefreshWithProgressImages:progressImage.images
+                               loadingImages:loadingImage.images
+                     progressScrollThreshold:threshold
+                      loadingImagesFrameRate:(NSInteger)ceilf(1.0/(loadingImage.duration/loadingImage.images.count))
+                               actionHandler:handler];
 }
-- (void)addPullToRefreshActionHandler:(actionHandler)handler ProgressImagesGifName:(NSString *)progressGifName LoadingImagesGifName:(NSString *)loadingGifName ProgressScrollThreshold:(NSInteger)threshold LoadingImageFrameRate:(NSInteger)frameRate
+
+- (void)addPullToRefreshWithProgressImagesGifName:(NSString *)progressGifName
+                             loadingImagesGifName:(NSString *)loadingGifName
+                          progressScrollThreshold:(NSInteger)threshold
+                            loadingImageFrameRate:(NSInteger)frameRate
+                                    actionHandler:(actionHandler)handler
 {
     UIImage *progressImage = [UIImage imageNamed:progressGifName];
     UIImage *loadingImage = [UIImage imageNamed:loadingGifName];
     
-    [self addPullToRefreshActionHandler:handler
-                         ProgressImages:progressImage.images
-                          LoadingImages:loadingImage.images
-                ProgressScrollThreshold:threshold
-                 LoadingImagesFrameRate:frameRate];
+    [self addPullToRefreshWithProgressImages:progressImage.images
+                               loadingImages:loadingImage.images
+                     progressScrollThreshold:threshold
+                      loadingImagesFrameRate:frameRate
+                               actionHandler:handler];
 }
-- (void)addPullToRefreshActionHandler:(actionHandler)handler ProgressImagesGifName:(NSString *)progressGifName ProgressScrollThreshold:(NSInteger)threshold
+
+- (void)addPullToRefreshWithProgressImagesGifName:(NSString *)progressGifName
+                          progressScrollThreshold:(NSInteger)threshold
+                                    actionHandler:(actionHandler)handler
 {
     UIImage *progressImage = [UIImage imageNamed:progressGifName];
-    [self addPullToRefreshActionHandler:handler
-                         ProgressImages:progressImage.images
-                ProgressScrollThreshold:threshold];
+    [self addPullToRefreshWithProgressImages:progressImage.images
+                     progressScrollThreshold:threshold
+                               actionHandler:handler];
 }
 
 - (void)triggerPullToRefresh

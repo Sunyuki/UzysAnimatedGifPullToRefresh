@@ -5,6 +5,6 @@ DEPENDENCIES:
   - AnimatedGIFImageSerialization (~> 0.0.1)
 
 SPEC CHECKSUMS:
-  AnimatedGIFImageSerialization: 334f7b882713b7336ba15106c92e4843e598358f
+  AnimatedGIFImageSerialization: 59d27f2411f5669d35c8d99f32b1b7ff6bd892d0
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1

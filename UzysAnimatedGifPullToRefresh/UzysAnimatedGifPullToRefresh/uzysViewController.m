@@ -47,11 +47,14 @@
     [super viewWillAppear:animated];
 
     __weak typeof(self) weakSelf =self;
-    [self.tableView addPullToRefreshActionHandler:^{
-        [weakSelf insertRowAtTop];
-        
-    } ProgressImagesGifName:@"spinner_dropbox@2x.gif" LoadingImagesGifName:@"run@2x.gif" ProgressScrollThreshold:50 LoadingImageFrameRate:30];
-    
+    [self.tableView
+     addPullToRefreshWithProgressImagesGifName:@"spinner_dropbox@2x.gif"
+     loadingImagesGifName:@"run@2x.gif"
+     progressScrollThreshold:50
+     loadingImageFrameRate:30
+     actionHandler:^{
+         [weakSelf insertRowAtTop];
+     }];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -164,11 +167,9 @@
             NSString *fname = [NSString stringWithFormat:@"Preloader_9_%05d",i];
             [progress addObject:[UIImage imageNamed:fname]];
         }
-        [self.tableView addPullToRefreshActionHandler:^{
+        [self.tableView addPullToRefreshWithProgressImages:progress progressScrollThreshold:60 actionHandler:^{
             [weakSelf insertRowAtTop];
-
-        } ProgressImages:progress ProgressScrollThreshold:60];
-        
+        }];        
     }
     else if([[self.pData objectAtIndex:indexPath.row] isKindOfClass:[NSString class]] && [[self.pData objectAtIndex:indexPath.row] isEqualToString:@"1"])
     {
@@ -176,10 +177,14 @@
         self.tableView.pullToRefreshView = nil;
         
         __weak typeof(self) weakSelf =self;
-        [self.tableView addPullToRefreshActionHandler:^{
-            [weakSelf insertRowAtTop];
-
-        } ProgressImagesGifName:@"spinner_dropbox@2x.gif" LoadingImagesGifName:@"run@2x.gif" ProgressScrollThreshold:60 LoadingImageFrameRate:30];
+        [self.tableView
+         addPullToRefreshWithProgressImagesGifName:@"spinner_dropbox@2x.gif"
+         loadingImagesGifName:@"run@2x.gif"
+         progressScrollThreshold:60
+         loadingImageFrameRate:30
+         actionHandler:^{
+             [weakSelf insertRowAtTop];
+         }];
     }
     else if([[self.pData objectAtIndex:indexPath.row] isKindOfClass:[NSString class]] && [[self.pData objectAtIndex:indexPath.row] isEqualToString:@"2"])
     {
@@ -187,10 +192,13 @@
         self.tableView.pullToRefreshView = nil;
         
         __weak typeof(self) weakSelf =self;
-        [self.tableView addPullToRefreshActionHandler:^{
-            [weakSelf insertRowAtTop];
-            
-        } ProgressImagesGifName:@"cupido@2x.gif" LoadingImagesGifName:@"jgr@2x.gif" ProgressScrollThreshold:90];
+        [self.tableView
+         addPullToRefreshWithProgressImagesGifName:@"cupido@2x.gif"
+         loadingImagesGifName:@"jgr@2x.gif"
+         progressScrollThreshold:90
+         actionHandler:^{
+             [weakSelf insertRowAtTop];
+         }];
     }
     else if([[self.pData objectAtIndex:indexPath.row] isKindOfClass:[NSString class]] && [[self.pData objectAtIndex:indexPath.row] isEqualToString:@"3"])
     {
